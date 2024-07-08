@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useWaitForTransactionReceipt,useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt,useWriteContract, useAccount} from 'wagmi'
 import paymentContract from "../contracts/PaymentContract.json"
 import { erc20Abi } from '../contracts/erc20_abi'
 import { parseEther } from 'viem'
@@ -10,9 +10,11 @@ const abi = paymentContract.abi;
  
 export function PayToken() {
     const [amount, setAmount] = useState('')
+    const { isConnected } = useAccount()
     const { 
         data: hash, 
         isPending,
+        error,
         writeContract 
       } = useWriteContract()
 
@@ -38,21 +40,31 @@ export function PayToken() {
         })
     }
 
-    return (
-        <div>
-            <h3 className="text-4xl font-bold mb-20">{"Pay the service with wFIL token"}</h3>
-            <input
-                type="text"
-                placeholder="0.05"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-            /> wFIL
-            <div style={{paddingTop: 12}}>
-                <button onClick={handleApprove} disabled={isPending}>Pay</button>
-            </div>
-            {isConfirming && <div>Waiting for confirmation...</div>}
-            {isConfirmed &&  <div>Payment is confirmed...</div>}
-            {hash && <div>Transaction Hash: {hash}</div>}
-        </div>
+    if (error)
+        return (
+          <div>
+            Error: {error.message}
+          </div>
     )
+
+    if(isConnected){
+        return (
+            <div>
+                <h3 className="text-4xl font-bold mb-20">{"Pay the service with wFIL token"}</h3>
+                <input
+                    type="text"
+                    placeholder="0.05"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                /> wFIL
+                <div style={{paddingTop: 12}}>
+                    <button onClick={handleApprove} disabled={isPending}>Pay</button>
+                </div>
+                {isConfirming && <div>Waiting for confirmation...</div>}
+                {isConfirmed &&  <div>Payment is confirmed...</div>}
+                {hash && <div>Transaction Hash: {hash}</div>}
+            </div>
+        )
+    }
+    
 }
