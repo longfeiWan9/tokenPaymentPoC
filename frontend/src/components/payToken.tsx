@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useWaitForTransactionReceipt,useWriteContract, useAccount} from 'wagmi'
 import paymentContract from "../contracts/PaymentContract.json"
 import { erc20Abi } from '../contracts/erc20_abi'
@@ -10,42 +10,49 @@ const abi = paymentContract.abi;
  
 export function PayToken() {
     const [amount, setAmount] = useState('')
+    const [isApproveConfirmed, setIsApproveConfirmed] = useState(false)
+    const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false)
+    const [isPaymentSent, setIsPaymentSent] = useState(false)
     const { isConnected } = useAccount()
     const { 
         data: hash, 
         isPending,
-        error,
         writeContract 
       } = useWriteContract()
-
-    const handleApprove = async () =>{
+    
+    const { isLoading: isConfirming, isSuccess: isConfirmed } =
+      useWaitForTransactionReceipt({hash})
+    
+    const handlePayment = async () =>{
         writeContract({
             address: WFIL_CONTRACT_ADDRESS,
             abi:erc20Abi,
             functionName: 'approve',
             args: [PAYMENT_CONTRACT_ADDRESS,parseEther(amount)]
-        });  
-    }
-
-    const { isLoading: isConfirming, isSuccess: isConfirmed } =
-        useWaitForTransactionReceipt({hash,
-    })
-
-    if(isConfirmed){
-        writeContract({
-            address: PAYMENT_CONTRACT_ADDRESS,
-            abi,
-            functionName: 'pay',
-            args: [parseEther(amount)],
         })
     }
 
-    if (error)
-        return (
-          <div>
-            Error: {error.message}
-          </div>
-    )
+    useEffect(() => {
+        if(isConfirmed){
+            if(!isApproveConfirmed){
+                setIsApproveConfirmed(isConfirmed);
+
+                if(!isPaymentSent){
+                    writeContract({
+                        address: PAYMENT_CONTRACT_ADDRESS,
+                        abi,
+                        functionName: 'pay',
+                        args: [parseInt(amount, 18)],
+                    })
+                    setIsPaymentSent(true);
+                }
+            }
+            else if(!isPaymentConfirmed){
+                setIsPaymentConfirmed(isConfirmed)
+            }
+        }
+
+    }, [isConfirming, isConfirmed]);
 
     if(isConnected){
         return (
@@ -58,11 +65,12 @@ export function PayToken() {
                     onChange={(e) => setAmount(e.target.value)}
                 /> wFIL
                 <div style={{paddingTop: 12}}>
-                    <button onClick={handleApprove} disabled={isPending}>Pay</button>
+                    <button onClick={handlePayment} disabled={isPending}>Pay</button>
                 </div>
-                {isConfirming && <div>Waiting for confirmation...</div>}
-                {isConfirmed &&  <div>Payment is confirmed...</div>}
                 {hash && <div>Transaction Hash: {hash}</div>}
+                {isConfirming && <div>Waiting for confirmation...</div>}
+                {isApproveConfirmed &&  <div>Approve is confirmed...</div>}
+                {isPaymentConfirmed &&  <div>Payment is received...</div>}
             </div>
         )
     }

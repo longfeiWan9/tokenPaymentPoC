@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { type BaseError,useWaitForTransactionReceipt,useWriteContract,useReadContract,useAccount } from 'wagmi'
 import paymentContract from "../contracts/PaymentContract.json"
 import { parseEther } from 'viem'
+import { ethers } from 'ethers'
 
 const PAYMENT_CONTRACT_ADDRESS = "0x52E47557508Dea5bdE04E2e9a308b138ECEe0BBC"
 const abi = paymentContract.abi;
@@ -26,23 +27,17 @@ export function Withdraw() {
           ...wagmiContractConfig,
           functionName: 'getOwner',
           args: [],
-      })
+    })
     
     const { 
-        data:paymentToken,
-      } = useReadContract({
-          ...wagmiContractConfig,
-          functionName: 'getPaymentToken',
-          args: [],
-      })
-    const { 
-        data:balance,
-        error,
+        data:balance
       } = useReadContract({
           ...wagmiContractConfig,
           functionName: 'getContractBalance',
           args: [],
+          account:address,
       }) 
+    console.log(balance);
 
     const handleWithdraw = async () =>{
         writeContract({
@@ -59,22 +54,13 @@ export function Withdraw() {
 
     if (isPending) return <div>Loading...</div> 
 
-    if (error)
-        return (
-          <div>
-            Error: {error.message}
-          </div>
-    )
-
     if(isConnected && onwerAddress==address){
         return (
             <div>
-                <h3 className="text-4xl font-bold mb-20">{"(ADMIN) Withdraw received wFIL"}</h3>
-                <>
-                    <div>Owner: {onwerAddress?.toString()}</div>
-                    <div>Payment Token: {paymentToken?.toString()}</div> 
-                    <div>Balance: {balance?.toString()} wFIL</div> 
-                </>
+                <h3 >(ADMIN) Withdraw received wFIL</h3>
+                <h4 >
+                    <div>Contract Balance: {balance?.toString()} wFIL</div> 
+                </h4>
                 <input
                     type="text"
                     placeholder="0.05"
@@ -85,7 +71,7 @@ export function Withdraw() {
                     <button onClick={handleWithdraw} disabled={isPending}>Withdraw</button>
                 </div> 
                 {isConfirming && <div>Waiting for confirmation...</div>}
-                {isConfirmed &&  <div>Payment is confirmed...</div>}
+                {isConfirmed &&  <div>Payment is withdrawed...</div>}
                 {hash && <div>Transaction Hash: {hash}</div>}
             </div>
         )
