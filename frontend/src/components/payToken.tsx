@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react'
 import { useWaitForTransactionReceipt,useWriteContract, useAccount} from 'wagmi'
 import paymentContract from "../contracts/PaymentContract.json"
 import { erc20Abi } from '../contracts/erc20_abi'
-import { parseEther } from 'viem'
+import { ethers } from 'ethers'
 
 const PAYMENT_CONTRACT_ADDRESS = "0x52E47557508Dea5bdE04E2e9a308b138ECEe0BBC";
 const WFIL_CONTRACT_ADDRESS = "0xaC26a4Ab9cF2A8c5DBaB6fb4351ec0F4b07356c4"
@@ -15,8 +15,7 @@ export function PayToken() {
     const [isPaymentSent, setIsPaymentSent] = useState(false)
     const { isConnected } = useAccount()
     const { 
-        data: hash, 
-        isPending,
+        data: hash,
         writeContract 
       } = useWriteContract()
     
@@ -24,11 +23,13 @@ export function PayToken() {
       useWaitForTransactionReceipt({hash})
     
     const handlePayment = async () =>{
+        setIsApproveConfirmed(false)
+        setIsPaymentConfirmed(false)
         writeContract({
             address: WFIL_CONTRACT_ADDRESS,
             abi:erc20Abi,
             functionName: 'approve',
-            args: [PAYMENT_CONTRACT_ADDRESS,parseEther(amount)]
+            args: [PAYMENT_CONTRACT_ADDRESS,ethers.parseEther(amount)]
         })
     }
 
@@ -42,7 +43,7 @@ export function PayToken() {
                         address: PAYMENT_CONTRACT_ADDRESS,
                         abi,
                         functionName: 'pay',
-                        args: [parseInt(amount, 18)],
+                        args: [ethers.parseUnits(amount,18)],
                     })
                     setIsPaymentSent(true);
                 }
