@@ -36,8 +36,7 @@ export function Withdraw() {
           functionName: 'getContractBalance',
           args: [],
           account:address,
-      }) 
-    console.log(balance);
+      })
 
     const handleWithdraw = async () =>{
         writeContract({
@@ -60,7 +59,7 @@ export function Withdraw() {
                 <h2 >ADMIN Page </h2>
                 <h3 >Withdraw received wFIL</h3>
                 <p>
-                    <div>Contract Balance: {balance?.toString()} wFIL</div> 
+                    <div>Contract Balance: {ethers.formatEther(balance?.toString()!)} wFIL</div> 
                 </p>
                 <input
                     type="text"
