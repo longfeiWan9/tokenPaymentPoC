@@ -66,7 +66,7 @@ export function PayToken() {
                     onChange={(e) => setAmount(e.target.value)}
                 /> wFIL
                 <div style={{paddingTop: 12}}>
-                    <button onClick={handlePayment} disabled={isPending}>Pay</button>
+                    <button onClick={handlePayment} disabled={isConfirming}>Pay</button>
                 </div>
                 {hash && <div>Transaction Hash: {hash}</div>}
                 {isConfirming && <div>Waiting for confirmation...</div>}
