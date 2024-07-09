@@ -22,8 +22,12 @@ In order to test the PoC, you will need to:
 There are two main features on the app.
 1. Pay for service using wFIl.
 
-   <img src="/Users/longfeiwang/Library/Application Support/typora-user-images/image-20240709163119278.png" alt="image-20240709163119278" style="zoom:50%;" />
-1. For the admin(contract owner) to withdraw payments received in smart contract. This 
+   <img width="496" alt="image" src="https://github.com/longfeiWan9/tokenPaymentPoC/assets/34025001/47cac80a-9e66-42af-bf0e-ecbff555bbca">
+   
+1. For the admin(contract owner) to withdraw payments received in smart contract.
+
+    <img width="381" alt="image" src="https://github.com/longfeiWan9/tokenPaymentPoC/assets/34025001/1405a48c-14ad-4a07-90a7-b765835e58a7">
+
 
 UI codes are all in `frontend` folder, we need to install all the dependiecies in `frontend` folder before we start the react app.
 
