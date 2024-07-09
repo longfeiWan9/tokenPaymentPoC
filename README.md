@@ -1,12 +1,36 @@
 # OnChain Token Payment Example
 
-This project demonstrates a basic example of paying with ERC20 token onchain. This project includes a tokenPayment contract and frontend to interact with the tokenPayment Contract. 
-- tokenPayment
-    - Need to compile smart contract which will use wFIL as payment in default
-    - setup `.env` to store your wallet key and contract address
-- frontend
-    - once you deployed smart contract, you can add it in the frontend code and test it out e2e.
-    - install all the dependencies, then you can start react app using `npm start`
+This project demonstrates a basic example of paying with ERC20 token using smart contract on Filecoin. This project includes a tokenPayment contract and frontend to interact with the tokenPayment Contract. 
+
+
+### tokenPayment
+
+The first version of tokenPayment contract will accept wFIL ERC20 token as payment. Going forward, we are going to add more examples of accepting multiple erc20 tokens as payment or even token payment crossed from other chains.
+
+In order to test the PoC, you will need to:
+1. clone this project and install all dependencies.
+1. add a `.env` file in the project which we will store wallet key and contract address for hardhat to use.
+    - add the following lines in `.env `
+        ```
+        PRIVATE_KEY=
+        WFIL_CONTRACT_ADDRESSS=
+        PAYMENT_CONTRACT_ADDRESS=
+        ```
+1. compile & deployed the tokenPayment contract and update `.env` file with token payment contract address.
+
+### frontEnd
+There are two main features on the app.
+1. Pay for service using wFIl.
+
+   <img src="/Users/longfeiwang/Library/Application Support/typora-user-images/image-20240709163119278.png" alt="image-20240709163119278" style="zoom:50%;" />
+1. For the admin(contract owner) to withdraw payments received in smart contract. This 
+
+UI codes are all in `frontend` folder, we need to install all the dependiecies in `frontend` folder before we start the react app.
+
+1. Update the deployed `PAYMENT_CONTRACT_ADDRESS` in `frontend/src/components/payToken.tsx` and `frontend/src/components/withdraw.tsx`.
+1. If you changed the contract code, you also need to cope the generated `PaymentContract.json` over into `frontend/src/contracts/` folder.
+1. You can start react app using `npm start`
+1. Open http://localhost:3000 to view it in the browser. 
 
 Try running some of the following tasks:
 
@@ -17,3 +41,11 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
+
+## What is next?
+This is the v0 of token payment PoC. We will add more features including:
+- Improve the UI/UX
+- Accept multiple Filecoin-native ERC20 tokens as payment on Filecoin
+- Link the payment to the service and track the payment history in smart contract
+- Accept cross-chain token payment for storage service provided in other L1
+- ......

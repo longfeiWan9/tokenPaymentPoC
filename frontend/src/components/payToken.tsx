@@ -56,8 +56,8 @@ export function PayToken() {
 
     if(isConnected){
         return (
-            <div>
-                <h3 className="text-4xl font-bold mb-20">{"Pay the service with wFIL token"}</h3>
+            <div style={{paddingTop:20}}>
+                <h3 >{"Pay the service with wFIL token"}</h3>
                 <input
                     type="text"
                     placeholder="0.05"

@@ -56,11 +56,12 @@ export function Withdraw() {
 
     if(isConnected && onwerAddress==address){
         return (
-            <div>
-                <h3 >(ADMIN) Withdraw received wFIL</h3>
-                <h4 >
+            <div style={{paddingTop:40}}>
+                <h2 >ADMIN Page </h2>
+                <h3 >Withdraw received wFIL</h3>
+                <p>
                     <div>Contract Balance: {balance?.toString()} wFIL</div> 
-                </h4>
+                </p>
                 <input
                     type="text"
                     placeholder="0.05"
