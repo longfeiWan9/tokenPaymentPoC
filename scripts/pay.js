@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat")
 require('dotenv').config();
-const WalletPK = process.env.PRIVATE_KEY_2;
+const WalletPK = process.env.PRIVATE_KEY;
 const paymentContractAddr = process.env.PAYMENT_CONTRACT_ADDRESS;
 const wfilAddress = process.env.WFIL_CONTRACT_ADDRESSS;
 
