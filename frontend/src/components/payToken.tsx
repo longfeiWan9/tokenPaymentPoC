@@ -4,7 +4,7 @@ import paymentContract from "../contracts/PaymentContract.json"
 import { erc20Abi } from '../contracts/erc20_abi'
 import { ethers } from 'ethers'
 
-const PAYMENT_CONTRACT_ADDRESS = "0x52E47557508Dea5bdE04E2e9a308b138ECEe0BBC";
+const PAYMENT_CONTRACT_ADDRESS = "Your-payment-contract-address";
 const WFIL_CONTRACT_ADDRESS = "0xaC26a4Ab9cF2A8c5DBaB6fb4351ec0F4b07356c4"
 const abi = paymentContract.abi;
  
@@ -57,7 +57,7 @@ export function PayToken() {
 
     if(isConnected){
         return (
-            <div style={{paddingTop:20}}>
+            <div style={{paddingTop:15}}>
                 <h3 >{"Pay the service with wFIL token"}</h3>
                 <input
                     type="text"

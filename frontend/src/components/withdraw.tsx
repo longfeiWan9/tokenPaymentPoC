@@ -4,7 +4,7 @@ import paymentContract from "../contracts/PaymentContract.json"
 import { parseEther } from 'viem'
 import { ethers } from 'ethers'
 
-const PAYMENT_CONTRACT_ADDRESS = "0x52E47557508Dea5bdE04E2e9a308b138ECEe0BBC"
+const PAYMENT_CONTRACT_ADDRESS = "Your-payment-contract-address"
 const abi = paymentContract.abi;
  
 export function Withdraw() {
@@ -55,7 +55,7 @@ export function Withdraw() {
 
     if(isConnected && onwerAddress==address){
         return (
-            <div style={{paddingTop:40}}>
+            <div style={{paddingTop:30}}>
                 <h2 >ADMIN Page </h2>
                 <h3 >Withdraw received wFIL</h3>
                 <p>
