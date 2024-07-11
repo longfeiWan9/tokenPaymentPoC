@@ -22,11 +22,13 @@ In order to test the PoC, you will need to:
 There are two main features on the app.
 1. Pay for service using wFIl.
 
-   <img width="496" alt="image" src="https://github.com/longfeiWan9/tokenPaymentPoC/assets/34025001/47cac80a-9e66-42af-bf0e-ecbff555bbca">
+   <img width="530" alt="image" src="https://github.com/FIL-Builders/OnchainPayment/assets/34025001/22993cb1-f064-440e-8b87-398e654b50c6">
+
    
 1. For the admin(contract owner) to withdraw payments received in smart contract.
 
-    <img width="381" alt="image" src="https://github.com/longfeiWan9/tokenPaymentPoC/assets/34025001/1405a48c-14ad-4a07-90a7-b765835e58a7">
+   <img width="501" alt="image" src="https://github.com/FIL-Builders/OnchainPayment/assets/34025001/f9af3ead-3476-4871-9486-9827ca5be15e">
+
 
 
 UI codes are all in `frontend` folder, we need to install all the dependiecies in `frontend` folder before we start the react app.
