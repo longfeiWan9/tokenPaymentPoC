@@ -11,6 +11,10 @@
     color: #000;
 }
 
+.connectHero {
+    margin-top: 12px;
+}
+
 .subtitle {
     font-size: 1.5rem;
     font-weight: 500;

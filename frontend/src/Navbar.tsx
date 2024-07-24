@@ -9,10 +9,7 @@ import { FaGithub } from "react-icons/fa";
 const Navbar = () => {
   return (
     <div className="container">
-   
-        <img src={logo} alt="logo" className="logo" />
-
-
+      <img src={logo} alt="logo" className="logo" />
       <div className="main">
         <div className="connectButton">
           <ConnectButton />
