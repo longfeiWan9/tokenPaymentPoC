@@ -4,7 +4,7 @@ import paymentContract from "../contracts/PaymentContract.json"
 import { parseEther } from 'viem'
 import { ethers } from 'ethers'
 
-const PAYMENT_CONTRACT_ADDRESS = "Your-payment-contract-address"
+const PAYMENT_CONTRACT_ADDRESS = "0x12191e7F6D1CA2Ebb25b04B178F4EF0479CEb5F0";
 const abi = paymentContract.abi;
  
 export function Withdraw() {
@@ -59,7 +59,7 @@ export function Withdraw() {
                 <h2 >ADMIN Page </h2>
                 <h3 >Withdraw received wFIL</h3>
                 <p>
-                    <div>Contract Balance: {ethers.formatEther(balance?.toString()!)} wFIL</div> 
+                    <div>Contract Balance: {ethers.formatUnits(balance?.toString()!,18)} wFIL</div> 
                 </p>
                 <input
                     type="text"
