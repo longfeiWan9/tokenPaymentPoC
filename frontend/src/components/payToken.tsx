@@ -81,26 +81,6 @@ export function PayToken() {
             Payer Address: {payerAddress}
           </div>
         )}
-        {/* <div
-          style={{
-            borderRadius: "15px",
-            padding: "1rem 2rem",
-            fontWeight: "600",
-            backgroundColor: "#F5F5F5B0",
-            color: "#0000005E",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="0.05"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            style={{
-              border: "none",
-            }}
-          />
-          wFIL
-        </div> */}
         <div
           style={{
             display: "flex",
@@ -111,7 +91,6 @@ export function PayToken() {
             fontSize: "20px",
             gap: "24px",
             fontWeight: "600",
-
             padding: "2rem 4rem",
           }}
         >
@@ -171,10 +150,29 @@ export function PayToken() {
                         <div
                           style={{
                             display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
                           }}
                         >
-                          {/* {account.displayBalance} */}
-                          1.25
+                          <input
+                            type="text"
+                            placeholder="1.25"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            style={{
+                              border: "none",
+                              borderRadius: "15px",
+                              padding: "0.5rem 1rem",
+                              fontWeight: "600",
+                              backgroundColor: "#F5F5F5B0",
+                              color: "#0000005E",
+                              fontSize: "18px",
+                              width: "80px",
+                            }}
+                          />
+                          <span style={{ fontSize: "18px", fontWeight: "600" }}>
+                            wFIL
+                          </span>
                         </div>
                       </div>
                     );
@@ -212,7 +210,7 @@ export function PayToken() {
                     }
 
                     return (
-                      <div>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                         <button
                           onClick={openChainModal}
                           style={{
@@ -237,12 +235,8 @@ export function PayToken() {
                           />
                           {account.balanceSymbol}
                         </button>
-                        <div
-                          style={{
-                            display: "flex",
-                          }}
-                        >
-                          Balance: {account.balanceFormatted}
+                        <div style={{ fontSize: "18px", fontWeight: "600", marginTop: "0.5rem" }}>
+                          Balance: {parseFloat(account.balanceFormatted ?? "0").toFixed(2)}
                         </div>
                       </div>
                     );
@@ -270,6 +264,7 @@ export function PayToken() {
               color: "#FFF",
               padding: "0.8rem 2rem",
               marginBottom: "1rem",
+              cursor: "pointer",
             }}
           >
             Send Payment
